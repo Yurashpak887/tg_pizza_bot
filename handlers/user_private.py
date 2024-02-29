@@ -41,8 +41,6 @@ async def shipping(message: types.Message):
     await message.answer("Варіанти доставки")
 
 
-
-
 @user_private_router.message(F.text.lower() =='варіанти доставки')
 async def echo(message: types.Message, bot:Bot):
     await bot.send_message(message.from_user.id, message.text)
@@ -54,6 +52,7 @@ async def echo(message: types.Message, bot:Bot):
 async def get_location(message: types.Message):
     await message.answer(f"Локація отримана")
     await message.answer(str(message.location))
+
 
 @user_private_router.message(F.contact)
 async def get_location(message: types.Message):

@@ -17,8 +17,8 @@ start_kb = ReplyKeyboardMarkup(
     input_field_placeholder='Що вас цікавить?'
 )
 
-del_kdb = ReplyKeyboardRemove()
 
+del_kdb = ReplyKeyboardRemove()
 
 
 start_kb2 = ReplyKeyboardBuilder()
@@ -29,7 +29,6 @@ start_kb2.add(
     KeyboardButton(text='Варіанти оплати'),
 )
 start_kb2.adjust(2,2)
-
 
 
 # start_kb3 = ReplyKeyboardBuilder()
