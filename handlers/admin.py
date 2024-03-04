@@ -37,6 +37,12 @@ class AddProduct(StatesGroup):
     price = State()
     image = State()
 
+    texts = {
+        'AddProduct:name': 'Введіть назву заново',
+        'AddProduct:description': 'Введіть опис заново',
+        'AddProduct:price': 'Введіть ціну заново',
+    }
+
 
 
 @admin_router.message(StateFilter(None), F.text == "Добавити товар")
@@ -46,16 +52,32 @@ async def add_product(message: types.Message, state: FSMContext):
     )
     await state.set_state(AddProduct.name)
 
-@admin_router.message(Command("відміна"))
-@admin_router.message(F.text.casefold() == "відміна")
+
+@admin_router.message(StateFilter('*'), Command("відміна"))
+@admin_router.message(StateFilter('*'), F.text.casefold() == "відміна")
 async def cancel_handler(message: types.Message, state: FSMContext) -> None:
-    await message.answer("Дія відмінена", reply_markup=admin_kb)
+    current_state = await state.get_state()
+    if current_state == None:
+        return
+
+    await state.clear()
+    await message.answer("Дії відмінені!", reply_markup=admin_kb)
 
 
-@admin_router.message(Command("назад"))
-@admin_router.message(F.text.casefold() == "назад")
+@admin_router.message(StateFilter("*"), Command("назад"))
+@admin_router.message(StateFilter("*"), F.text.casefold() == "назад")
 async def cancel_handler(message: types.Message, state: FSMContext) -> None:
-    await message.answer(f"ок, вы вернулись к прошлому шагу")
+    current_state = await state.get_state()
+    if current_state == AddProduct.name:
+        await message.answer('Попереднього кроку немає! назАбо введіть назву товару, або введіть "відміна"')
+        return
+    previous = None
+    for step in AddProduct.__all_states__:
+        if step.state == current_state:
+            await state.set_state(previous)
+            await message.answer(f"Ви повернулись до попереднього кроку! {AddProduct.texts[previous.state]} " )
+            return
+        previous = step
 
 
 @admin_router.message(StateFilter(AddProduct.name), F.text)
@@ -77,6 +99,7 @@ async def add_price(message: types.Message, state: FSMContext):
     await state.update_data(price=message.text)
     await message.answer("Надішліть зображення товару")
     await state.set_state(AddProduct.image)
+
 
 @admin_router.message(StateFilter(AddProduct.image), F.photo)
 async def add_image(message: types.Message, state: FSMContext):

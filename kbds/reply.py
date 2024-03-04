@@ -52,10 +52,6 @@ test_kb = ReplyKeyboardMarkup(
 )
 
 
-
-
-
-
 admin_kb = ReplyKeyboardMarkup(
     keyboard=[
         [

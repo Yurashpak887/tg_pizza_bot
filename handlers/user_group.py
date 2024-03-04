@@ -25,7 +25,9 @@ async def get_admins(message: types.Message, bot:Bot):
     if message.from_user.id in admins_list:
         await message.delete()
 
+
 restricted_word = {'кабан', 'хомяк', 'test'}
+
 
 def clean_text(text: str):
     return text.translate(str.maketrans('', '', punctuation))
