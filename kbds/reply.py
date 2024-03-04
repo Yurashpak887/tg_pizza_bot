@@ -50,3 +50,21 @@ test_kb = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True,
 )
+
+
+
+
+
+
+admin_kb = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text='Добавити товар'),
+            KeyboardButton(text='Змінити товар'),
+            KeyboardButton(text='Видалити товар'),
+            KeyboardButton(text='Я тільки подивитись'),
+
+        ]
+    ],
+    resize_keyboard=True,
+)
