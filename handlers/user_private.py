@@ -11,6 +11,7 @@ user_private_router.message.filter(ChatTypes(['private']))
 @user_private_router.message(Command("home"))
 @user_private_router.message(CommandStart())
 async def start_cmd(message: types.Message):
+    print(type(message))
     await message.answer("Привіт! Я віртуальний помічник нашого закладу!", reply_markup=reply.start_kb2.as_markup(
         resize_keyboard=True,
         input_field_placeholder='Що вас цікавить?'

@@ -9,7 +9,6 @@ from kbds.reply import admin_kb
 admin_router = Router()
 admin_router.message.filter(ChatTypes(["private"]), IsAdmin())
 
-
 @admin_router.message(Command("admin"))
 async def add_product(message: types.Message):
     await message.answer('Що хочете зробити?', reply_markup=admin_kb)
