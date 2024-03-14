@@ -56,10 +56,7 @@ admin_kb = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text='Добавити товар'),
-            KeyboardButton(text='Змінити товар'),
-            KeyboardButton(text='Видалити товар'),
-            KeyboardButton(text='Я тільки подивитись'),
-
+            KeyboardButton(text='Асортимент'),
         ]
     ],
     resize_keyboard=True,
